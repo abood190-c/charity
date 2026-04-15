@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عطاء - منصة العمل الخيري والتطوعي</title>
+    
+    <!-- Bootstrap 5 RTL CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts - Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2b7a4b;
+            --secondary: #1e5f3a;
+            --accent: #ffc107;
+            --light: #e8f5e9;
+            --dark: #1a2e3f;
+            --gradient: linear-gradient(135deg, #2b7a4b, #3b9b5e);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f8f9fa;
+            color: #2d3e50;
+            overflow-x: hidden;
+        }
+
+        /* شريط التمرير */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--light); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+
+        /* شريط التنقل */
+        .navbar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,100,0,0.1);
+            padding: 15px 0;
+            transition: 0.3s;
+        }
+
+        .navbar.scrolled { padding: 10px 0; }
+
+        .navbar-brand {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary) !important;
+            position: relative;
+        }
+
+        .navbar-brand::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 50%;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: #2d3e50 !important;
+            margin: 0 10px;
+            position: relative;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: 0.3s;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after { width: 80%; }
+
+        .nav-link:hover,
+        .nav-link.active { color: var(--primary) !important; }
+
+        /* الأزرار */
+        .btn-custom {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(43,122,75,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-custom:hover::before { left: 100%; }
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(43,122,75,0.4);
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* القسم الرئيسي */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(43,122,75,0.95), rgba(30,95,58,0.95));
+            min-height: 100vh;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: 60px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-stats {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat-item { text-align: center; color: white; }
+        .stat-number { font-size: 40px; font-weight: 800; display: block; }
+
+        /* البطاقات */
+        .card-custom {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,100,0,0.1);
+            transition: 0.3s;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(43,122,75,0.2);
+        }
+
+        .card-img-wrapper {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .card-custom:hover .card-img-wrapper img { transform: scale(1.1); }
+
+        .progress-custom {
+            height: 10px;
+            border-radius: 5px;
+            background: #e9ecef;
+        }
+
+        .progress-custom .progress-bar {
+            background: var(--gradient);
+            border-radius: 5px;
+        }
+
+        /* الإحصائيات */
+        .stats-section {
+            background: linear-gradient(135deg, #f8f9fa, var(--light));
+            padding: 80px 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,100,0,0.1);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(43,122,75,0.15);
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 35px;
+        }
+
+        /* الفعاليات */
+        .events-section { padding: 80px 0; background: white; }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,100,0,0.1);
+            border-right: 4px solid var(--primary);
+            margin-bottom: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 8px 25px rgba(43,122,75,0.15);
+        }
+
+        .event-date {
+            background: var(--light);
+            color: var(--primary);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .event-date .day { font-size: 24px; display: block; }
+
+        /* المتطوعين */
+        .volunteers-section {
+            background: var(--gradient);
+            padding: 80px 0;
+            color: white;
+        }
+
+        .volunteer-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .volunteer-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .volunteer-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin: 0 auto 20px;
+            overflow: hidden;
+        }
+
+        .volunteer-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .volunteer-rating { color: var(--accent); margin: 10px 0; }
+
+        /* نماذج */
+        .auth-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 50px auto;
+        }
+
+        .auth-header {
+            background: var(--gradient);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .auth-body { padding: 40px; }
+
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(43,122,75,0.25);
+        }
+
+        /* الملف الشخصي */
+        .profile-header {
+            background: var(--gradient);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            overflow: hidden;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-box .number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .nav-tabs .nav-link {
+            color: var(--primary);
+            font-weight: 600;
+            border: none;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background: none;
+        }
+
+        /* التذييل */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-right: 10px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            margin-left: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* الصفحات المخفية */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* الإشعارات */
+        .notification-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .notification {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-right: 4px solid;
+            animation: slideInLeft 0.3s;
+        }
+
+        .notification.success { border-right-color: #28a745; }
+        .notification.error { border-right-color: #dc3545; }
+        .notification.warning { border-right-color: #ffc107; }
+        .notification.info { border-right-color: #17a2b8; }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* التحميل */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            display: none;
+        }
+
+        .loader.active { display: flex; }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* استجابة */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 40px; }
+            .section-title { font-size: 30px; }
+            .stat-number { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- شاشة التحميل -->
+<div class="loader" id="loader">
+    <div class="spinner"></div>
+</div>
+
+<!-- شريط التنقل -->
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="#" onclick="showPage('home')">
+            <i class="fas fa-hand-holding-heart ms-2"></i>
+            عطاء
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showPage('home')">الرئيسية</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPage('campaigns')">الحملات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPage('events')">الفعاليات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPage('volunteers')">المتطوعون</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showPage('about')">عن عطاء</a>
+                </li>
+            </ul>
+            <div class="d-flex" id="authButtons"></div>
+        </div>
+    </div>
+</nav>
+
+<!-- ==================== الصفحات ==================== -->
+
+<!-- الصفحة الرئيسية -->
+<div id="homePage" class="page active">
+    <!-- القسم الرئيسي -->
+    <section class="hero-section">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h1 class="hero-title">عطاء<br>نحو مستقبل أفضل</h1>
+                    <p class="hero-subtitle text-white">منصة خيرية وتطوعية تهدف لخدمة المجتمع الفلسطيني</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-custom btn-lg" onclick="showPage('campaigns')">
+                            <i class="fas fa-heart ms-2"></i> تبرع الآن
+                        </button>
+                        <button class="btn btn-outline-custom btn-lg text-white border-white" onclick="showPage('volunteers')">
+                            <i class="fas fa-hands-helping ms-2"></i> تطوع معنا
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="hero-stats">
+                        <div class="row">
+                            <div class="col-6 mb-4">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="totalDonations">₪750,000+</span>
+                                    <span class="stat-label">إجمالي التبرعات</span>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-4">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="totalVolunteers">1,200+</span>
+                                    <span class="stat-label">متطوع نشط</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="activeCampaigns">45</span>
+                                    <span class="stat-label">حملة نشطة</span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="beneficiaries">5,800+</span>
+                                    <span class="stat-label">مستفيد</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الإحصائيات -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up">
+                    <div class="stat-card" onclick="showPage('campaigns')">
+                        <div class="stat-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                        <h3>₪525,000</h3>
+                        <p>إجمالي التبرعات</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card" onclick="showPage('volunteers')">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <h3>1,250</h3>
+                        <p>متطوع مسجل</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-card" onclick="showPage('events')">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <h3>4,500+</h3>
+                        <p>ساعة تطوع</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-card" onclick="showPage('events')">
+                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                        <h3>28</h3>
+                        <p>فعالية قادمة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الحملات النشطة -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-down">
+                <h2 class="section-title">حملات التبرع النشطة</h2>
+                <p class="text-muted">ساهم معنا في دعم هذه الحملات</p>
+            </div>
+            <div class="row" id="homeCampaigns"></div>
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-custom btn-lg" onclick="showPage('campaigns')">
+                    عرض جميع الحملات <i class="fas fa-arrow-left me-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفعاليات القادمة -->
+    <section class="events-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-down">
+                <h2 class="section-title">الفعاليات القادمة</h2>
+                <p class="text-muted">شارك معنا في فعالياتنا التطوعية</p>
+            </div>
+            <div class="row" id="homeEvents"></div>
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-custom btn-lg" onclick="showPage('events')">
+                    عرض جميع الفعاليات <i class="fas fa-arrow-left me-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- أفضل المتطوعين -->
+    <section class="volunteers-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-down">
+                <h2 class="section-title text-white">أفضل المتطوعين</h2>
+                <p class="text-white-50">نخبة من متطوعينا المتميزين</p>
+            </div>
+            <div class="row" id="homeVolunteers"></div>
+        </div>
+    </section>
+</div>
+
+<!-- صفحة الحملات -->
+<div id="campaignsPage" class="page">
+    <div class="container" style="padding-top: 100px; padding-bottom: 50px;">
+        <h2 class="section-title mb-4">جميع الحملات</h2>
+        
+        <!-- فلترة -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="campaignSearch" placeholder="بحث عن حملة..." onkeyup="filterCampaigns()">
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="campaignCategory" onchange="filterCampaigns()">
+                    <option value="all">جميع الفئات</option>
+                    <option value="medical">طبية</option>
+                    <option value="education">تعليمية</option>
+                    <option value="disaster">إغاثية</option>
+                    <option value="general">عامة</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="campaignCity" onchange="filterCampaigns()">
+                    <option value="all">جميع المدن</option>
+                    <option value="غزة">غزة</option>
+                    <option value="القدس">القدس</option>
+                    <option value="رام الله">رام الله</option>
+                    <option value="نابلس">نابلس</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- قائمة الحملات -->
+        <div class="row" id="campaignsList"></div>
+    </div>
+</div>
+
+<!-- صفحة الفعاليات -->
+<div id="eventsPage" class="page">
+    <div class="container" style="padding-top: 100px; padding-bottom: 50px;">
+        <h2 class="section-title mb-4">الفعاليات القادمة</h2>
+        
+        <!-- تبويبات -->
+        <ul class="nav nav-pills mb-4" id="eventTabs">
+            <li class="nav-item"><a class="nav-link active" href="#" onclick="filterEvents('all'); return false;">الجميع</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="filterEvents('upcoming'); return false;">القادمة</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="filterEvents('ongoing'); return false;">الجارية</a></li>
+        </ul>
+        
+        <div id="eventsList"></div>
+    </div>
+</div>
+
+<!-- صفحة المتطوعين -->
+<div id="volunteersPage" class="page">
+    <div class="container" style="padding-top: 100px; padding-bottom: 50px;">
+        <h2 class="section-title mb-4">المتطوعون</h2>
+        
+        <div class="row mb-4">
+            <div class="col-md-6 mx-auto">
+                <input type="text" class="form-control" id="volunteerSearch" placeholder="ابحث عن متطوع..." onkeyup="filterVolunteers()">
+            </div>
+        </div>
+        
+        <div class="row" id="volunteersList"></div>
+        
+        <div class="text-center mt-4">
+            <button class="btn btn-success btn-lg" onclick="showVolunteerForm()">
+                <i class="fas fa-hands-helping ms-2"></i>
+                انضم كمتطوع
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- صفحة الملف الشخصي -->
+<div id="profilePage" class="page">
+    <div class="profile-header">
+        <div class="container text-center">
+            <div class="profile-avatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" id="profileImage">
+            </div>
+            <h2 class="fw-bold" id="profileName">أحمد محمد</h2>
+            <p id="profileRole">متطوع</p>
+            <button class="btn btn-light" onclick="editProfile()">
+                <i class="fas fa-edit ms-2"></i> تعديل الملف
+            </button>
+        </div>
+    </div>
+    
+    <div class="container mb-5">
+        <!-- الإحصائيات -->
+        <div class="row mb-4">
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-box">
+                    <div class="number" id="statDonations">0</div>
+                    <div class="text-muted">تبرع</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-box">
+                    <div class="number" id="statEvents">0</div>
+                    <div class="text-muted">فعالية</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-box">
+                    <div class="number" id="statHours">0</div>
+                    <div class="text-muted">ساعة</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="stat-box">
+                    <div class="number" id="statRating">0</div>
+                    <div class="text-muted">التقييم</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- تبويبات -->
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item"><a class="nav-link active" href="#" onclick="showProfileTab('donations'); return false;">تبرعاتي</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showProfileTab('events'); return false;">فعالياتي</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="showProfileTab('info'); return false;">معلوماتي</a></li>
+        </ul>
+        
+        <div id="profileDonations"></div>
+        <div id="profileEvents" style="display: none;"></div>
+        <div id="profileInfo" style="display: none;"></div>
+    </div>
+</div>
+
+<!-- صفحة تسجيل الدخول -->
+<div id="loginPage" class="page">
+    <div class="container" style="padding-top: 100px; padding-bottom: 50px;">
+        <div class="auth-card">
+            <div class="auth-header">
+                <i class="fas fa-hand-holding-heart fa-3x mb-3"></i>
+                <h2>مرحباً بعودتك</h2>
+                <p>سجل دخولك لمنصة عطاء</p>
+            </div>
+            <div class="auth-body">
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="mb-3">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" id="loginEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">كلمة المرور</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 mb-3">
+                        <i class="fas fa-sign-in-alt ms-2"></i> دخول
+                    </button>
+                    <div class="text-center">
+                        <span>ليس لديك حساب؟</span>
+                        <a href="#" onclick="showPage('register')">أنشئ حساب</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- صفحة التسجيل -->
+<div id="registerPage" class="page">
+    <div class="container" style="padding-top: 100px; padding-bottom: 50px;">
+        <div class="auth-card">
+            <div class="auth-header">
+                <i class="fas fa-hand-holding-heart fa-3x mb-3"></i>
+                <h2>انضم إلى عطاء</h2>
+                <p>أنشئ حسابك وابدأ رحلة العطاء</p>
+            </div>
+            <div class="auth-body">
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="mb-3">
+                        <label class="form-label">الاسم الكامل</label>
+                        <input type="text" class="form-control" id="regFullName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" id="regEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">كلمة المرور</label>
+                        <input type="password" class="form-control" id="regPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">تأكيد كلمة المرور</label>
+                        <input type="password" class="form-control" id="regConfirmPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">نوع الحساب</label>
+                        <select class="form-select" id="regRole">
+                            <option value="user">مستخدم</option>
+                            <option value="volunteer">متطوع</option>
+                            <option value="donor">متبرع</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="fas fa-user-plus ms-2"></i> إنشاء حساب
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- صفحة التبرع -->
+<div id="donatePage" class="page">
+    <div class="container" style="padding-top: 100px; padding-bottom: 50px;">
+        <h2 class="section-title mb-4">تبرع الآن</h2>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <!-- اختيار الحملة -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">1. اختر الحملة</h5>
+                        <select class="form-select mb-3" id="donateCampaign">
+                            <option value="">اختر حملة...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- المبلغ -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">2. حدد المبلغ</h5>
+                        <div class="row g-2 mb-3">
+                            <div class="col"><button class="btn btn-outline-success w-100" onclick="setAmount(50)">₪50</button></div>
+                            <div class="col"><button class="btn btn-outline-success w-100" onclick="setAmount(100)">₪100</button></div>
+                            <div class="col"><button class="btn btn-outline-success w-100" onclick="setAmount(200)">₪200</button></div>
+                            <div class="col"><button class="btn btn-outline-success w-100" onclick="setAmount(500)">₪500</button></div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">₪</span>
+                            <input type="number" class="form-control" id="donateAmount" placeholder="مبلغ آخر" min="1">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- طريقة الدفع -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">3. طريقة الدفع</h5>
+                        <select class="form-select" id="donateMethod">
+                            <option value="card">بطاقة ائتمان</option>
+                            <option value="bank">تحويل بنكي</option>
+                            <option value="online">دفع إلكتروني</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ملخص -->
+            <div class="col-md-4">
+                <div class="card sticky-top" style="top: 100px;">
+                    <div class="card-body">
+                        <h5 class="card-title">ملخص التبرع</h5>
+                        <hr>
+                        <p>المبلغ: <span id="summaryAmount" class="fw-bold">₪0</span></p>
+                        <p>طريقة الدفع: <span id="summaryMethod">-</span></p>
+                        <hr>
+                        <button class="btn btn-success w-100" onclick="processDonation()">
+                            <i class="fas fa-check-circle ms-2"></i>
+                            تأكيد التبرع
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- صفحة عن عطاء -->
+<div id="aboutPage" class="page">
+    <div class="container" style="padding-top: 100px; padding-bottom: 50px;">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <img src="https://images.unsplash.com/photo-1593113598335-9c5f5c40219e?w=800" class="img-fluid rounded-4 shadow">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="section-title">من نحن</h2>
+                <p class="lead">منصة عطاء هي منصة خيرية وتطوعية تهدف لخدمة المجتمع الفلسطيني.</p>
+                <p>نحن نعمل على جمع المتبرعين والمتطوعين لخدمة المحتاجين في مختلف المدن الفلسطينية من خلال حملات التبرع والفعاليات التطوعية.</p>
+                
+                <h4 class="mt-4">رؤيتنا</h4>
+                <p>مجتمع متكافل يسوده التعاون والعطاء.</p>
+                
+                <h4>رسالتنا</h4>
+                <p>تمكين الأفراد والمؤسسات من المشاركة في العمل الخيري بسهولة وشفافية.</p>
+                
+                <h4>قيمنا</h4>
+                <ul>
+                    <li>الشفافية والمصداقية</li>
+                    <li>التميز والاحترافية</li>
+                    <li>الاستدامة والأثر المستمر</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- التذييل -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <h5 class="footer-title"><i class="fas fa-hand-holding-heart ms-2"></i>عطاء</h5>
+                <p class="text-white-50">منصة خيرية وتطوعية تعمل في فلسطين</p>
+                <div class="social-links">
+                    <a onclick="notify('جاري التفعيل')"><i class="fab fa-facebook-f"></i></a>
+                    <a onclick="notify('جاري التفعيل')"><i class="fab fa-twitter"></i></a>
+                    <a onclick="notify('جاري التفعيل')"><i class="fab fa-instagram"></i></a>
+                    <a onclick="notify('للتواصل: 0599123456')"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="footer-title">روابط سريعة</h5>
+                <ul class="footer-links">
+                    <li><a onclick="showPage('home')"><i class="fas fa-chevron-left ms-2 small"></i>الرئيسية</a></li>
+                    <li><a onclick="showPage('campaigns')"><i class="fas fa-chevron-left ms-2 small"></i>الحملات</a></li>
+                    <li><a onclick="showPage('events')"><i class="fas fa-chevron-left ms-2 small"></i>الفعاليات</a></li>
+                    <li><a onclick="showPage('volunteers')"><i class="fas fa-chevron-left ms-2 small"></i>المتطوعون</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="footer-title">المحافظات</h5>
+                <ul class="footer-links">
+                    <li><a onclick="filterByCity('غزة')"><i class="fas fa-map-marker-alt ms-2 text-success"></i>غزة</a></li>
+                    <li><a onclick="filterByCity('القدس')"><i class="fas fa-map-marker-alt ms-2 text-success"></i>القدس</a></li>
+                    <li><a onclick="filterByCity('رام الله')"><i class="fas fa-map-marker-alt ms-2 text-success"></i>رام الله</a></li>
+                    <li><a onclick="filterByCity('نابلس')"><i class="fas fa-map-marker-alt ms-2 text-success"></i>نابلس</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 mb-4">
+                <h5 class="footer-title">معلومات الاتصال</h5>
+                <ul class="footer-links">
+                    <li><i class="fas fa-phone ms-2"></i> +970 59 123 4567</li>
+                    <li><i class="fas fa-envelope ms-2"></i> info@ataa.ps</li>
+                    <li><i class="fas fa-map-marker-alt ms-2"></i> طولكرم - فلسطين</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="mb-0">جميع الحقوق محفوظة &copy; 2026 منصة عطاء</p>
+        </div>
+    </div>
+</footer>
+
+<!-- أزرار عائمة -->
+<div class="fixed-bottom mb-4 me-4" style="left: auto; right: auto; z-index: 1000;">
+    <div class="d-flex flex-column gap-2">
+        <button class="btn btn-success rounded-circle p-3 shadow" onclick="quickDonate()" title="تبرع سريع">
+            <i class="fas fa-hand-holding-heart"></i>
+        </button>
+        <button class="btn btn-light rounded-circle p-3 shadow" onclick="scrollToTop()" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+</div>
+
+<!-- حاوية الإشعارات -->
+<div class="notification-container" id="notificationContainer"></div>
+
+<!-- نموذج التطوع -->
+<div class="modal fade" id="volunteerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="fas fa-hands-helping ms-2"></i>انضم كمتطوع</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="volunteerForm" onsubmit="submitVolunteer(event)">
+                    <div class="mb-3">
+                        <label class="form-label">الاسم الكامل</label>
+                        <input type="text" class="form-control" id="volName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" id="volEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">رقم الهاتف</label>
+                        <input type="tel" class="form-control" id="volPhone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">المهارات</label>
+                        <textarea class="form-control" id="volSkills" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">المدينة</label>
+                        <select class="form-select" id="volCity" required>
+                            <option value="">اختر المدينة</option>
+                            <option value="غزة">غزة</option>
+                            <option value="القدس">القدس</option>
+                            <option value="رام الله">رام الله</option>
+                            <option value="نابلس">نابلس</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">تقديم الطلب</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- نموذج تعديل الملف الشخصي -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">تعديل الملف الشخصي</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm" onsubmit="saveProfile(event)">
+                    <div class="mb-3">
+                        <label class="form-label">الاسم الكامل</label>
+                        <input type="text" class="form-control" id="editFullName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" id="editEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">رقم الهاتف</label>
+                        <input type="tel" class="form-control" id="editPhone">
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">حفظ التغييرات</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+// ==================== التهيئة ====================
+AOS.init({ duration: 1000, once: true });
+
+// البيانات الافتراضية
+let campaigns = [];
+let events = [];
+let volunteers = [];
+let donations = [];
+let users = [];
+let currentUser = null;
+
+// تهيئة التطبيق
+function init() {
+    loadData();
+    updateAuthButtons();
+    loadHomeData();
+    loadCampaignsList();
+    loadEventsList();
+    loadVolunteersList();
+    loadDonateCampaigns();
+    setupScrollEffect();
+}
+
+// تحميل البيانات
+function loadData() {
+    campaigns = JSON.parse(localStorage.getItem('campaigns')) || [
+        { id: 1, title: 'إفطار رمضان في غزة', location: 'غزة', description: 'توفير وجبات إفطار', current: 45000, target: 75000, donors: 128, category: 'general', image: 'https://images.unsplash.com/photo-1542810634-71277b95a5d8?w=800' },
+        { id: 2, title: 'علاج جرحى غزة', location: 'غزة', description: 'دعم علاج الجرحى', current: 150000, target: 200000, donors: 342, category: 'medical', image: 'https://images.unsplash.com/photo-1616671276441-2f2c277b8bf6?w=800' },
+        { id: 3, title: 'مشروع ماء الخير', location: 'الخليل', description: 'حفر آبار مياه', current: 30000, target: 100000, donors: 89, category: 'general', image: 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800' }
+    ];
+    
+    events = JSON.parse(localStorage.getItem('events')) || [
+        { id: 1, title: 'توزيع طرود غذائية - غزة', location: 'غزة', date: '2024-03-15', time: '10:00', volunteers: 30, max: 50, status: 'upcoming' },
+        { id: 2, title: 'حملة توعية صحية - نابلس', location: 'نابلس', date: '2024-03-20', time: '15:30', volunteers: 15, max: 30, status: 'upcoming' },
+        { id: 3, title: 'إفطار جماعي - رام الله', location: 'رام الله', date: '2024-03-25', time: '17:30', volunteers: 40, max: 60, status: 'upcoming' }
+    ];
+    
+    volunteers = JSON.parse(localStorage.getItem('volunteers')) || [
+        { id: 1, name: 'أحمد محمد', role: 'منسق فعاليات', hours: 120, events: 15, rating: 4.5, city: 'غزة', skills: ['تنظيم', 'قيادة'], image: 'https://randomuser.me/api/portraits/men/32.jpg' },
+        { id: 2, name: 'عمر حسن', role: 'مسعف', hours: 200, events: 20, rating: 5, city: 'نابلس', skills: ['إسعاف', 'تمريض'], image: 'https://randomuser.me/api/portraits/men/45.jpg' },
+        { id: 3, name: 'حسن إبراهيم', role: 'مهندس', hours: 150, events: 18, rating: 5, city: 'القدس', skills: ['بناء', 'صيانة'], image: 'https://randomuser.me/api/portraits/men/67.jpg' }
+    ];
+    
+    donations = JSON.parse(localStorage.getItem('donations')) || [];
+    users = JSON.parse(localStorage.getItem('users')) || [];
+    currentUser = JSON.parse(localStorage.getItem('currentUser'));
+}
+
+// حفظ البيانات
+function saveData() {
+    localStorage.setItem('campaigns', JSON.stringify(campaigns));
+    localStorage.setItem('events', JSON.stringify(events));
+    localStorage.setItem('volunteers', JSON.stringify(volunteers));
+    localStorage.setItem('donations', JSON.stringify(donations));
+    localStorage.setItem('users', JSON.stringify(users));
+}
+
+// ==================== التنقل بين الصفحات ====================
+function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(page + 'Page').classList.add('active');
+    
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    event?.target.classList.add('active');
+    
+    window.scrollTo(0, 0);
+    
+    if (page === 'profile' && !currentUser) {
+        notify('الرجاء تسجيل الدخول أولاً', 'warning');
+        showPage('login');
+    }
+}
+
+// ==================== المصادقة ====================
+function updateAuthButtons() {
+    const authDiv = document.getElementById('authButtons');
+    if (currentUser) {
+        authDiv.innerHTML = `
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fas fa-user-circle"></i> ${currentUser.name}
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="showPage('profile')">الملف الشخصي</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#" onclick="logout()">تسجيل خروج</a></li>
+                </ul>
+            </div>
+        `;
+    } else {
+        authDiv.innerHTML = `
+            <button class="btn btn-outline-custom ms-2" onclick="showPage('register')">
+                <i class="fas fa-user-plus"></i> تسجيل
+            </button>
+            <button class="btn btn-custom" onclick="showPage('login')">
+                <i class="fas fa-sign-in-alt"></i> دخول
+            </button>
+        `;
+    }
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        currentUser = { id: user.id, name: user.fullName, email: user.email, role: user.role };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        updateAuthButtons();
+        notify('مرحباً بعودتك!', 'success');
+        showPage('home');
+    } else {
+        notify('بيانات الدخول غير صحيحة', 'error');
+    }
+}
+
+function handleRegister(e) {
+    e.preventDefault();
+    
+    if (document.getElementById('regPassword').value !== document.getElementById('regConfirmPassword').value) {
+        notify('كلمة المرور غير متطابقة', 'error');
+        return;
+    }
+    
+    const newUser = {
+        id: Date.now(),
+        fullName: document.getElementById('regFullName').value,
+        email: document.getElementById('regEmail').value,
+        password: document.getElementById('regPassword').value,
+        role: document.getElementById('regRole').value
+    };
+    
+    if (users.some(u => u.email === newUser.email)) {
+        notify('البريد الإلكتروني مستخدم بالفعل', 'error');
+        return;
+    }
+    
+    users.push(newUser);
+    saveData();
+    
+    notify('تم إنشاء الحساب بنجاح', 'success');
+    showPage('login');
+}
+
+function logout() {
+    currentUser = null;
+    localStorage.removeItem('currentUser');
+    updateAuthButtons();
+    notify('تم تسجيل الخروج', 'info');
+    showPage('home');
+}
+
+// ==================== الصفحة الرئيسية ====================
+function loadHomeData() {
+    // الحملات
+    const homeCampaigns = document.getElementById('homeCampaigns');
+    homeCampaigns.innerHTML = campaigns.slice(0, 3).map(c => `
+        <div class="col-md-4 mb-4">
+            <div class="card-custom" onclick="showCampaignDetails(${c.id})">
+                <div class="card-img-wrapper">
+                    <img src="${c.image}" alt="${c.title}">
+                </div>
+                <div class="p-3">
+                    <h5>${c.title}</h5>
+                    <p class="small text-muted">${c.location}</p>
+                    <div class="progress-custom progress mb-2">
+                        <div class="progress-bar" style="width: ${(c.current/c.target*100).toFixed(0)}%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>₪${c.current.toLocaleString()}</span>
+                        <span class="text-success">${c.donors} متبرع</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // الفعاليات
+    const homeEvents = document.getElementById('homeEvents');
+    homeEvents.innerHTML = events.slice(0, 4).map(e => {
+        const date = new Date(e.date);
+        return `
+            <div class="col-md-6 mb-3">
+                <div class="event-card d-flex align-items-center">
+                    <div class="event-date ms-3">
+                        <span class="day">${date.getDate()}</span>
+                        <span class="month">${date.toLocaleString('ar', { month: 'short' })}</span>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold">${e.title}</h6>
+                        <small><i class="fas fa-map-marker-alt text-success"></i> ${e.location}</small>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    // المتطوعين
+    const homeVolunteers = document.getElementById('homeVolunteers');
+    homeVolunteers.innerHTML = volunteers.slice(0, 4).map(v => `
+        <div class="col-md-3 mb-3">
+            <div class="volunteer-card" onclick="showVolunteerProfile(${v.id})">
+                <div class="volunteer-img">
+                    <img src="${v.image}" alt="${v.name}">
+                </div>
+                <h6>${v.name}</h6>
+                <p class="small">${v.role}</p>
+                <div class="volunteer-rating">
+                    ${'<i class="fas fa-star"></i>'.repeat(Math.floor(v.rating))}
+                    ${v.rating % 1 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ==================== الحملات ====================
+function loadCampaignsList() {
+    const list = document.getElementById('campaignsList');
+    list.innerHTML = campaigns.map(c => `
+        <div class="col-md-4 mb-4">
+            <div class="card-custom" onclick="showCampaignDetails(${c.id})">
+                <div class="card-img-wrapper">
+                    <img src="${c.image}" alt="${c.title}">
+                </div>
+                <div class="p-3">
+                    <h5>${c.title}</h5>
+                    <p class="small text-muted">${c.location}</p>
+                    <p class="small">${c.description}</p>
+                    <div class="progress-custom progress mb-2">
+                        <div class="progress-bar" style="width: ${(c.current/c.target*100).toFixed(0)}%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>₪${c.current.toLocaleString()} / ₪${c.target.toLocaleString()}</span>
+                        <span class="text-success">${c.donors} متبرع</span>
+                    </div>
+                    <button class="btn btn-success btn-sm w-100 mt-2" onclick="event.stopPropagation(); showDonatePage(${c.id})">
+                        <i class="fas fa-hand-holding-heart"></i> تبرع الآن
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterCampaigns() {
+    const search = document.getElementById('campaignSearch').value.toLowerCase();
+    const category = document.getElementById('campaignCategory').value;
+    const city = document.getElementById('campaignCity').value;
+    
+    const filtered = campaigns.filter(c => 
+        (c.title.toLowerCase().includes(search) || c.description.toLowerCase().includes(search)) &&
+        (category === 'all' || c.category === category) &&
+        (city === 'all' || c.location === city)
+    );
+    
+    document.getElementById('campaignsList').innerHTML = filtered.map(c => `
+        <div class="col-md-4 mb-4">
+            <div class="card-custom" onclick="showCampaignDetails(${c.id})">
+                <div class="card-img-wrapper">
+                    <img src="${c.image}" alt="${c.title}">
+                </div>
+                <div class="p-3">
+                    <h5>${c.title}</h5>
+                    <p class="small text-muted">${c.location}</p>
+                    <p class="small">${c.description}</p>
+                    <div class="progress-custom progress mb-2">
+                        <div class="progress-bar" style="width: ${(c.current/c.target*100).toFixed(0)}%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>₪${c.current.toLocaleString()} / ₪${c.target.toLocaleString()}</span>
+                        <span class="text-success">${c.donors} متبرع</span>
+                    </div>
+                    <button class="btn btn-success btn-sm w-100 mt-2" onclick="event.stopPropagation(); showDonatePage(${c.id})">
+                        <i class="fas fa-hand-holding-heart"></i> تبرع الآن
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ==================== الفعاليات ====================
+function loadEventsList() {
+    const list = document.getElementById('eventsList');
+    list.innerHTML = events.map(e => createEventCard(e)).join('');
+}
+
+function createEventCard(e) {
+    const date = new Date(e.date);
+    return `
+        <div class="event-card d-flex align-items-center justify-content-between p-3">
+            <div class="d-flex align-items-center">
+                <div class="event-date ms-3">
+                    <span class="day">${date.getDate()}</span>
+                    <span class="month">${date.toLocaleString('ar', { month: 'short' })}</span>
+                </div>
+                <div>
+                    <h5 class="fw-bold">${e.title}</h5>
+                    <div class="d-flex gap-3">
+                        <small><i class="fas fa-map-marker-alt text-success"></i> ${e.location}</small>
+                        <small><i class="fas fa-clock text-success"></i> ${e.time}</small>
+                        <small><i class="fas fa-users text-success"></i> ${e.volunteers}/${e.max}</small>
+                    </div>
+                </div>
+            </div>
+            ${e.volunteers < e.max ? 
+                `<button class="btn btn-success" onclick="joinEvent(${e.id})">انضم</button>` : 
+                `<button class="btn btn-secondary" disabled>مكتمل</button>`}
+        </div>
+    `;
+}
+
+function filterEvents(status) {
+    document.querySelectorAll('#eventTabs .nav-link').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    const filtered = status === 'all' ? events : events.filter(e => e.status === status);
+    document.getElementById('eventsList').innerHTML = filtered.map(e => createEventCard(e)).join('');
+}
+
+function joinEvent(id) {
+    if (!currentUser) {
+        notify('الرجاء تسجيل الدخول أولاً', 'warning');
+        showPage('login');
+        return;
+    }
+    
+    const event = events.find(e => e.id === id);
+    if (event.volunteers < event.max) {
+        event.volunteers++;
+        saveData();
+        loadEventsList();
+        notify('تم تسجيلك في الفعالية بنجاح', 'success');
+    }
+}
+
+// ==================== المتطوعين ====================
+function loadVolunteersList() {
+    const list = document.getElementById('volunteersList');
+    list.innerHTML = volunteers.map(v => `
+        <div class="col-md-4 mb-4">
+            <div class="volunteer-card" onclick="showVolunteerProfile(${v.id})">
+                <div class="volunteer-img">
+                    <img src="${v.image}" alt="${v.name}">
+                </div>
+                <h5>${v.name}</h5>
+                <p>${v.role}</p>
+                <div class="volunteer-rating">
+                    ${'<i class="fas fa-star"></i>'.repeat(Math.floor(v.rating))}
+                    ${v.rating % 1 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                </div>
+                <div class="d-flex justify-content-center gap-2">
+                    <span class="badge bg-success">${v.hours} ساعة</span>
+                    <span class="badge bg-primary">${v.events} فعالية</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterVolunteers() {
+    const search = document.getElementById('volunteerSearch').value.toLowerCase();
+    const filtered = volunteers.filter(v => 
+        v.name.toLowerCase().includes(search) ||
+        v.city.toLowerCase().includes(search) ||
+        v.skills.some(s => s.toLowerCase().includes(search))
+    );
+    
+    document.getElementById('volunteersList').innerHTML = filtered.map(v => `
+        <div class="col-md-4 mb-4">
+            <div class="volunteer-card" onclick="showVolunteerProfile(${v.id})">
+                <div class="volunteer-img">
+                    <img src="${v.image}" alt="${v.name}">
+                </div>
+                <h5>${v.name}</h5>
+                <p>${v.role}</p>
+                <div class="volunteer-rating">
+                    ${'<i class="fas fa-star"></i>'.repeat(Math.floor(v.rating))}
+                    ${v.rating % 1 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                </div>
+                <div class="d-flex justify-content-center gap-2">
+                    <span class="badge bg-success">${v.hours} ساعة</span>
+                    <span class="badge bg-primary">${v.events} فعالية</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function showVolunteerForm() {
+    if (!currentUser) {
+        notify('الرجاء تسجيل الدخول أولاً', 'warning');
+        showPage('login');
+        return;
+    }
+    new bootstrap.Modal(document.getElementById('volunteerModal')).show();
+}
+
+function submitVolunteer(e) {
+    e.preventDefault();
+    
+    const newVolunteer = {
+        id: Date.now(),
+        name: document.getElementById('volName').value,
+        email: document.getElementById('volEmail').value,
+        phone: document.getElementById('volPhone').value,
+        skills: document.getElementById('volSkills').value.split(','),
+        city: document.getElementById('volCity').value,
+        hours: 0,
+        events: 0,
+        rating: 0,
+        image: 'https://randomuser.me/api/portraits/men/1.jpg'
+    };
+    
+    volunteers.push(newVolunteer);
+    saveData();
+    
+    bootstrap.Modal.getInstance(document.getElementById('volunteerModal')).hide();
+    notify('تم تقديم طلبك بنجاح', 'success');
+    loadVolunteersList();
+}
+
+// ==================== التبرع ====================
+function loadDonateCampaigns() {
+    const select = document.getElementById('donateCampaign');
+    select.innerHTML = '<option value="">اختر حملة...</option>' + 
+        campaigns.map(c => `<option value="${c.id}">${c.title}</option>`).join('');
+}
+
+function setAmount(amount) {
+    document.getElementById('donateAmount').value = amount;
+    updateSummary();
+}
+
+function updateSummary() {
+    const amount = document.getElementById('donateAmount').value;
+    const method = document.getElementById('donateMethod');
+    const methodText = method.options[method.selectedIndex].text;
+    
+    document.getElementById('summaryAmount').textContent = amount ? `₪${amount}` : '₪0';
+    document.getElementById('summaryMethod').textContent = methodText;
+}
+
+function processDonation() {
+    if (!currentUser) {
+        notify('الرجاء تسجيل الدخول أولاً', 'warning');
+        showPage('login');
+        return;
+    }
+    
+    const campaignId = document.getElementById('donateCampaign').value;
+    const amount = parseFloat(document.getElementById('donateAmount').value);
+    const method = document.getElementById('donateMethod').value;
+    
+    if (!campaignId || !amount) {
+        notify('الرجاء اختيار الحملة وتحديد المبلغ', 'warning');
+        return;
+    }
+    
+    const campaign = campaigns.find(c => c.id == campaignId);
+    campaign.current += amount;
+    campaign.donors++;
+    
+    donations.push({
+        id: Date.now(),
+        userId: currentUser.id,
+        campaignId: parseInt(campaignId),
+        amount: amount,
+        method: method,
+        date: new Date().toISOString()
+    });
+    
+    saveData();
+    notify('تم التبرع بنجاح! جزاك الله خيراً', 'success');
+    showPage('campaigns');
+}
+
+function quickDonate() {
+    if (!currentUser) {
+        notify('الرجاء تسجيل الدخول أولاً', 'warning');
+        showPage('login');
+    } else {
+        showPage('donate');
+    }
+}
+
+// ==================== الملف الشخصي ====================
+function loadProfile() {
+    if (!currentUser) return;
+    
+    document.getElementById('profileName').textContent = currentUser.name;
+    
+    const userDonations = donations.filter(d => d.userId === currentUser.id);
+    const userEvents = []; // سيتم إضافتها لاحقاً
+    
+    document.getElementById('statDonations').textContent = userDonations.length;
+    document.getElementById('statEvents').textContent = userEvents.length;
+    document.getElementById('statHours').textContent = '120';
+    document.getElementById('statRating').textContent = '4.8';
+    
+    // التبرعات
+    document.getElementById('profileDonations').innerHTML = userDonations.map(d => {
+        const campaign = campaigns.find(c => c.id === d.campaignId);
+        return `
+            <div class="donation-item p-3 mb-2 bg-light rounded">
+                <div class="d-flex justify-content-between">
+                    <span><strong>${campaign?.title}</strong></span>
+                    <span class="text-success fw-bold">₪${d.amount}</span>
+                </div>
+                <small class="text-muted">${new Date(d.date).toLocaleDateString('ar')}</small>
+            </div>
+        `;
+    }).join('');
+}
+
+function showProfileTab(tab) {
+    document.querySelectorAll('#profilePage .nav-link').forEach(l => l.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    ['donations', 'events', 'info'].forEach(t => {
+        document.getElementById('profile' + t.charAt(0).toUpperCase() + t.slice(1)).style.display = t === tab ? 'block' : 'none';
+    });
+}
+
+function editProfile() {
+    document.getElementById('editFullName').value = currentUser.name;
+    document.getElementById('editEmail').value = currentUser.email;
+    new bootstrap.Modal(document.getElementById('editProfileModal')).show();
+}
+
+function saveProfile(e) {
+    e.preventDefault();
+    
+    currentUser.name = document.getElementById('editFullName').value;
+    currentUser.email = document.getElementById('editEmail').value;
+    
+    const userIndex = users.findIndex(u => u.id === currentUser.id);
+    if (userIndex !== -1) {
+        users[userIndex].fullName = currentUser.name;
+        users[userIndex].email = currentUser.email;
+        users[userIndex].phone = document.getElementById('editPhone').value;
+    }
+    
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    saveData();
+    
+    bootstrap.Modal.getInstance(document.getElementById('editProfileModal')).hide();
+    loadProfile();
+    notify('تم تحديث الملف الشخصي', 'success');
+}
+
+// ==================== أدوات مساعدة ====================
+function notify(message, type = 'info') {
+    const container = document.getElementById('notificationContainer');
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 
+                        type === 'error' ? 'fa-exclamation-circle' : 
+                        type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}"></i>
+        ${message}
+    `;
+    container.appendChild(notification);
+    
+    setTimeout(() => notification.remove(), 3000);
+}
+
+function filterByCity(city) {
+    showPage('campaigns');
+    setTimeout(() => {
+        document.getElementById('campaignCity').value = city;
+        filterCampaigns();
+    }, 100);
+}
+
+function showDonatePage(campaignId) {
+    showPage('donate');
+    setTimeout(() => {
+        document.getElementById('donateCampaign').value = campaignId;
+        updateSummary();
+    }, 100);
+}
+
+function showCampaignDetails(id) {
+    notify('جاري تحميل تفاصيل الحملة', 'info');
+}
+
+function showVolunteerProfile(id) {
+    notify('جاري تحميل الملف الشخصي', 'info');
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setupScrollEffect() {
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('mainNav');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+}
+
+// ==================== بدء التطبيق ====================
+window.onload = function() {
+    init();
+    
+    // التحقق من وجود هاش في URL
+    if (window.location.hash) {
+        const page = window.location.hash.substring(1);
+        if (document.getElementById(page + 'Page')) {
+            showPage(page);
+        }
+    }
+};
+
+// تحديث الملخص عند تغيير المبلغ
+document.getElementById('donateAmount')?.addEventListener('input', updateSummary);
+document.getElementById('donateMethod')?.addEventListener('change', updateSummary);
+</script>
+</body>
+</html>
